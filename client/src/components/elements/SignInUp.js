@@ -8,20 +8,11 @@ import TableRow from '@material-ui/core/TableRow';
 import TextField from '@material-ui/core/TextField';
 import Paper from '@material-ui/core/Paper';
 import { Clear, Add } from '@material-ui/icons'
-import { Link } from 'react-router-dom';
-import { Typography, IconButton, Fab, Select, InputLabel, FormControl, Button, Container } from '@material-ui/core';
+import { Typography, IconButton, Fab, Button,} from '@material-ui/core';
 import Dialog from '@material-ui/core/Dialog';
-import List from '@material-ui/core/List';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import CloseIcon from '@material-ui/icons/Close';
-import Slide from '@material-ui/core/Slide';
-import { vi } from "date-fns/locale";
-
-
-const Transition = React.forwardRef(function Transition(props, ref) {
-    return <Slide direction="up" ref={ref} {...props} />;
-});
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogTitle from '@material-ui/core/DialogTitle';
 const StyledTableCell = withStyles(theme => ({
     head: {
         backgroundColor: theme.palette.common.black,
@@ -40,12 +31,16 @@ const StyledTableRow = withStyles(theme => ({
     },
 }))(TableRow);
 
-function createData(name, rank, position, unit, infor) {
-    return { name, rank, position, unit, infor };
+function createData(date, infor, reason, timeIn, timeOut, consider) {
+    return { date, infor, reason, timeIn, timeOut, consider };
 }
 
 const rows = [
-    createData('bui trong khanh', '1/', 'bt', 'bVT', <a to='/test'>xem thêm</a>),
+    createData('20/02/2019', "Hoàng Đưc Mạnh - CVT - AC49-04 ", 'Tiếp phẩm', '7h30', '7h45', 'chấp hành tốt quy định ra vào khu kĩ thuật', <a to='/test'>xem thêm</a>),
+    createData('20/02/2019', "Hoàng Đưc Mạnh - CVT - AC49-04 ", 'Tiếp phẩm', '7h30', '7h45', 'chấp hành tốt quy định ra vào khu kĩ thuật', <a to='/test'>xem thêm</a>),
+    createData('20/02/2019', "Hoàng Đưc Mạnh - CVT - AC49-04 ", 'Tiếp phẩm', '7h30', '7h45', 'chấp hành tốt quy định ra vào khu kĩ thuật', <a to='/test'>xem thêm</a>),
+    createData('20/02/2019', "Hoàng Đưc Mạnh - CVT - AC49-04 ", 'Tiếp phẩm', '7h30', '7h45', 'chấp hành tốt quy định ra vào khu kĩ thuật', <a to='/test'>xem thêm</a>),
+    createData('20/02/2019', "Hoàng Đưc Mạnh - CVT - AC49-04 ", 'Tiếp phẩm', '7h30', '7h45', 'chấp hành tốt quy định ra vào khu kĩ thuật', <a to='/test'>xem thêm</a>),
 
 ];
 
@@ -81,55 +76,19 @@ function SignInUp() {
     function handleClose() {
         setOpen(false);
     }
+    const handleChange = (e)=>{
+        console.log(e.target.value)
+    }
     return (
         <Paper className={classes.root}>
             <Typography style={{ textAlign: 'center' }} variant='h4'>Đăng kí ra vào kho và khu kỹ thuật</Typography>
             <div>
-                <form >
                     <TextField
                         style={{ margin: 8 }}
                         placeholder='Tìm kiếm'
                     />
                     <IconButton ><Clear /></IconButton>
-                </form>
-                <form className={classes.container} >
-      <TextField
-        locale={vi}
-        id="date"
-        label="Birthday"
-        type="date"
-        className={classes.textField}
-        InputLabelProps={{
-          shrink: true
-        }}
-      />
-    </form>
-    <form className={classes.container} >
-      <TextField
-        id="date"
-        label="Birthday"
-        type="time"
-        className={classes.textField}
-        InputLabelProps={{
-          shrink: true
-        }}
-      />
-    </form>
-                <FormControl className={classes.formControl}>
-                    <InputLabel htmlFor="age-native-simple">Chức vụ</InputLabel>
-                    <Select native >
-                        <option value="" />
-                        <option value={10}>Tiểu đoàn trưởng</option>
-                        <option value={20}>Chính trị viên tiểu đoàn</option>
-                        <option value={30}>Đại đội trưởng</option>
-                        <option value={20}>Chính trị viên Đại đội</option>
-                        <option value={20}>Nhân viên Tài chính</option>
-                        <option value={20}>Nhân viên Quân khí</option>
-                        <option value={20}>Quân y</option>
-                        <option value={20}>Thợ sữa chữa</option>
-                        <option value={20}>Lái xe</option>
-                    </Select>
-                </FormControl>
+                
                 <Fab
                     onClick={handleClickOpen}
                     size="medium"
@@ -139,102 +98,100 @@ function SignInUp() {
                     style={{ float: 'right' }}>
                     <Add />
                 </Fab>
-                <Dialog fullScreen open={open} onClose={handleClose} TransitionComponent={Transition}>
-                    <AppBar className={classes.appBar}>
-                        <Toolbar>
-                            <IconButton edge="start" color="inherit" onClick={handleClose} aria-label="Close">
-                                <CloseIcon />
-                            </IconButton>
-                            <Typography variant="h6" className={classes.title}>
-                                Tạo mới
-                            </Typography>
-                            <Button color="inherit" onClick={handleClose}>
-                                save
-                             </Button>
-                        </Toolbar>
-                    </AppBar>
-                    <List>
-                    <Container style={{
-                        boxSizing: 'content-box',
-                        padding: 20  
-                    }}>
-                    <TextField
-                        style={{width: "100%", marginTop: 6}}
-                        id="standard-password-input"
-                        label="Họ và tên, năm sinh, số hiệu sĩ quan"
-                    />
-                     <TextField
-                        style={{width: "100%", marginTop: 6}}
-                        id="standard-password-input"
-                        label="Cấp bậc, năm nhập ngũ"
-                    />
-                     <TextField
-                        style={{width: "100%", marginTop: 6}}
-                        id="standard-password-input"
-                        label="Chức vụ, năm nhận, đơn vị"
-                    />
-                     <TextField
-                        style={{width: "100%", marginTop: 6}}
-                        id="standard-password-input"
-                        label="Học vị"
-                    />
-                     <TextField
-                        style={{width: "100%", marginTop: 6}}
-                        id="standard-password-input"
-                        label="Chức danh khoa học"
-                    />
-                     <TextField
-                        style={{width: "100%", marginTop: 6}}
-                        id="standard-password-input"
-                        label="Đảng viên dự bị, Chính thức"
-                    />
-                     <TextField
-                        style={{width: "100%", marginTop: 6}}
-                        id="standard-password-input"
-                        label="Qua trường (cấp học, ngành, thời gian)"
-                    />
-                     <TextField
-                        style={{width: "100%", marginTop: 6}}
-                        id="standard-password-input"
-                        label="Văn hóa, ngoại ngữ"
-                    />
-                    <TextField
-                        style={{width: "100%", marginTop: 6}}
-                        id="standard-password-input"
-                        label="Qua chiến đấu (cương vị, thời gian)"
-                    />
-                    <TextField
-                        style={{width: "100%", marginTop: 6}}
-                        id="standard-password-input"
-                        label="Quê quán, trú quán, sức khỏe"
-                    />
-                    </Container>
-                    </List>
-                </Dialog>
-            </div>
-            
+                <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
+        <DialogTitle id="form-dialog-title">Đăng kí ra vào kho và khu kĩ thuật</DialogTitle>
+        <DialogContent>
+        <TextField
+        onChange={handleChange}
+        locale="vi"
+        id="date"
+        label="Ngày tháng năm"
+        type="date"
+        defaultValue={new Date().toLocaleString().slice(0,9)}
+        InputLabelProps={{
+          shrink: true,
+        }}
+      />
+           <TextField
+            autoFocus
+            margin="dense"
+            id="name"
+            label="Họ và tên, đơn vị, người phương tiện ra vào"
+            fullWidth
+          />
+          <TextField
+            autoFocus
+            margin="dense"
+            id="name"
+            label="Lý do"
+            fullWidth
+          />
+          <TextField
+        onChange={handleChange}
+        locale="vi"
+        id="date"
+        label="Thời gian vào"
+        type="time"
+        defaultValue={new Date().toLocaleString().slice(0,9)}
+        InputLabelProps={{
+          shrink: true,
+        }}
+      />
+          <TextField
+        style={{marginLeft: 100}}
+        onChange={handleChange}
+        locale="vi"
+        id="date"
+        label="Thời gian ra"
+        type="time"
+        defaultValue={new Date().toLocaleString().slice(0,9)}
+        InputLabelProps={{
+          shrink: true,
+        }}
+      />
+          <TextField
+            autoFocus
+            margin="dense"
+            id="name"
+            label="Nhân xét"
+            type="email"
+            fullWidth
+          />
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose} color="primary">
+            Hủy
+          </Button>
+          <Button onClick={handleClose} color="primary">
+            Đăng kí
+          </Button>
+        </DialogActions>
+      </Dialog></div>
+
             <Table className={classes.table}>
                 <TableHead>
-                    <TableRow style={{background:"#3f51b5"}}>
-                        <StyledTableCell style={{background:"#3f51b5"}}>Họ và tên</StyledTableCell>
-                        <StyledTableCell style={{background:"#3f51b5"}} align="center">
-                            Cấp bậc
+                    <TableRow style={{ background: "#3f51b5" }}>
+                        <StyledTableCell style={{ background: "#3f51b5" }}>Ngày tháng năm</StyledTableCell>
+                        <StyledTableCell style={{ background: "#3f51b5" }} align="center">
+                            Họ và tên, đơn vị, người phương tiện ra vào
                         </StyledTableCell>
-                        <StyledTableCell  style={{background:"#3f51b5"}} align="center">Chức vụ</StyledTableCell>
-                        <StyledTableCell  style={{background:"#3f51b5"}} align="center">Đơn vị</StyledTableCell>
-                        <StyledTableCell  style={{background:"#3f51b5"}} align="center">Thông tin chi tiết</StyledTableCell>
+                        <StyledTableCell style={{ background: "#3f51b5" }} align="center">Lý do</StyledTableCell>
+                        <StyledTableCell style={{ background: "#3f51b5" }} align="center">Thời gian ra</StyledTableCell>
+                        <StyledTableCell style={{ background: "#3f51b5" }} align="center">Thời gian vào</StyledTableCell>
+                        <StyledTableCell style={{ background: "#3f51b5" }} align="center">Nhân xét</StyledTableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
                     {rows.map(row => (
                         <StyledTableRow key={row.name}>
                             <StyledTableCell component="th" scope="row">
-                                {row.name}
+                                {row.date}
                             </StyledTableCell>
-                            <StyledTableCell align="center">{row.rank}</StyledTableCell>
-                            <StyledTableCell align="center">{row.position}</StyledTableCell>
-                            <StyledTableCell align="center">{row.unit}</StyledTableCell>
-                            <StyledTableCell align="center"><Link to='/profile'>Xem</Link></StyledTableCell>
+                            <StyledTableCell align="center">{row.infor}</StyledTableCell>
+                            <StyledTableCell align="center">{row.reason}</StyledTableCell>
+                            <StyledTableCell align="center">{row.timeIn}</StyledTableCell>
+                            <StyledTableCell align="center">{row.timeOut}</StyledTableCell>
+                            <StyledTableCell align="center">{row.consider}</StyledTableCell>
                         </StyledTableRow>
                     ))}
                 </TableBody>

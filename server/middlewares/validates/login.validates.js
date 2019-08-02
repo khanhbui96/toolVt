@@ -2,7 +2,7 @@ const validator = require('validator');
 
 module.exports.register = (req, res, next)=>{
     const errs = {};
-    const data = req.body;
+    const data = req.fields;
     if(!validator.isEmail(data.email)){
         errs.email = 'email is valid!'
     };
@@ -34,7 +34,7 @@ module.exports.register = (req, res, next)=>{
 };
 module.exports.login = (req, res, next)=>{
     const errs = {};
-    const data = req.body;
+    const data = req.fields;
     if(!validator.isEmail(data.email)){
         errs.email = 'email is valid!'
     };

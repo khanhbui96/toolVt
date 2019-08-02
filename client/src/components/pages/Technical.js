@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import Root from '../Root';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
@@ -8,6 +8,9 @@ import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import People from '../elements/People';
 import SignInUp from '../elements/SignInUp';
+import {withRouter} from 'react-router-dom'
+import {connect} from 'react-redux';
+import {getAllProfiles} from '../../actions/profile.acitons';
 
 function TabContainer(props) {
   return (
@@ -31,10 +34,16 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-function Technical() {
+const Technical = props => {
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
-
+  const {profiles, getAllProfiles} = props ;
+  useEffect(()=>{
+    if(!localStorage.getItem('jwt')){
+        props.history.push('/')
+    };
+    getAllProfiles();
+  },[])
   function handleChange(event, newValue) {
     setValue(newValue);
   }
@@ -48,10 +57,13 @@ function Technical() {
             <Tab label="Đăng kí ra vào kho và khu kĩ thuật" />
             </Tabs>
         </AppBar>
-        {value === 0 && <div className={classes.page}><People/></div>}
+        {value === 0 && <div className={classes.page}><People profiles={profiles}/></div>}
         {value === 1 && <div className={classes.page}><SignInUp/></div>}
         </div>
     </Root>
   );
 }
-export default Technical;
+const mapStateToProps = state=>({
+  profiles: state.profiles
+});
+export default connect(mapStateToProps, {getAllProfiles})(withRouter (Technical))

@@ -1,7 +1,13 @@
-import React from 'react';
+import React, {useEffect} from 'react';
+import {withRouter} from 'react-router-dom';
 import Root from '../Root';
 
-const Home = ()=>{
+const Home = (props)=>{
+    useEffect(()=>{
+        if(!localStorage.getItem('jwt')){
+            props.history.push('/')
+        }
+    })
     return(
         <Root>
             <h3>GIỚI THIỆU</h3>
@@ -16,4 +22,4 @@ const Home = ()=>{
     )
 };
 
-export default Home
+export default withRouter(Home)

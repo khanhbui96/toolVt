@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import TextField from '@material-ui/core/TextField';
-import { Button } from '@material-ui/core';
+import { Button, Typography } from '@material-ui/core';
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router-dom';
 
@@ -27,7 +27,6 @@ const useStyles = makeStyles(theme => ({
         password: ''
     });
     useEffect(()=>{
-        console.log(errs)
     },[errs])
     return (
         <div style={{ display: "flex", justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
@@ -39,7 +38,10 @@ const useStyles = makeStyles(theme => ({
                         e.preventDefault();
                         loginUser(data,()=>(history.push('/home')))
                     }}>
+                    <Typography variant='h3'>Đăng nhập</Typography>
                     <TextField
+                        error = {errs.email ? true : false}
+                        helperText={errs.email ? errs.email : ''}
                         className={classes.textfield}
                         onChange={(e) => {
                             changeData({ ...data, [e.target.name]: e.target.value })
@@ -49,6 +51,8 @@ const useStyles = makeStyles(theme => ({
                         variant="outlined"
                     />
                     <TextField
+                        error = {errs.password ? true : false}
+                        helperText={errs.password ? errs.password : ''}
                         className={classes.textfield}
                         onChange={(e) => {
                             changeData({ ...data, [e.target.name]: e.target.value })

@@ -21,7 +21,7 @@ const routes  = [
         component: ()=><Technical/>
     },
     {
-        path:'/profile',
+        path:'/technical/profile/:id',
         exact: true,
         component: ()=><Profile/>
     },

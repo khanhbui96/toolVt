@@ -5,7 +5,8 @@ const callApi = (method, endpoint, data)=>{
         method,
         data,
         url: `http://localhost:5000/api${endpoint}`
-    })
+    }
+    )
 };
 
 export default callApi
